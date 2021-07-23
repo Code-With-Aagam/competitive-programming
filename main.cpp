@@ -51,14 +51,14 @@ void writeContainer(T &t) {
     write("\n");
 }
 
-void solve(int tc) {}
+void solve() {}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int tc = 1;
-    read(tc);
-    for (int curr = 1; curr <= tc; ++curr) {
-        solve(curr);
+    int T = 1;
+    read(T);
+    for (int t = 1; t <= T; ++t) {
+        solve();
     }
 }
