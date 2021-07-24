@@ -16,6 +16,8 @@
         "forward_list": "cpp",
         "list": "cpp",
         "chrono": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "deque": "cpp",
+        "unordered_set": "cpp"
     }
 }
