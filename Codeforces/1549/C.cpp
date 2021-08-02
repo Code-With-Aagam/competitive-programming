@@ -52,6 +52,32 @@ void writeContainer(T &t) {
 }
 
 void solve() {
+    int n, m, u, v, q, t, ans = 0;
+    read(n, m);
+    vector<int> outdegree(n + 1, 0);
+    while (m--) {
+        read(u, v);
+        if (u > v) swap(u, v);
+        outdegree[u]++;
+        if (outdegree[u] == 1) ++ans;
+    }
+    read(q);
+    while (q--) {
+        read(t);
+        if (t == 1) {
+            read(u, v);
+            if (u > v) swap(u, v);
+            outdegree[u]++;
+            if (outdegree[u] == 1) ++ans;
+        } else if (t == 2) {
+            read(u, v);
+            if (u > v) swap(u, v);
+            outdegree[u]--;
+            if (outdegree[u] == 0) --ans;
+        } else {
+            write(n - ans, "\n");
+        }
+    }
 }
 
 signed main() {

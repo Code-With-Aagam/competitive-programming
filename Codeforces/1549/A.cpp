@@ -52,13 +52,16 @@ void writeContainer(T &t) {
 }
 
 void solve() {
+    int n;
+    read(n);
+    write(2, " ", n - 1, "\n");
 }
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int T = 1;
-    // read(T);
+    read(T);
     for (int t = 1; t <= T; ++t) {
         solve();
     }

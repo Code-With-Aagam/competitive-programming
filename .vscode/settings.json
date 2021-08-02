@@ -18,6 +18,7 @@
         "chrono": "cpp",
         "limits": "cpp",
         "deque": "cpp",
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "iosfwd": "cpp"
     }
 }
