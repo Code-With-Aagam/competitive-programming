@@ -51,39 +51,7 @@ void writeContainer(T &t) {
     write("\n");
 }
 
-void solve() {
-    int n;
-    read(n);
-    vector<int> a(n);
-    readContainer(a);
-    if (n == 1) {
-        write(1, "\n");
-        return;
-    }
-    vector<int> diff;
-    for (int i = 1; i < n; ++i) {
-        diff.push_back(abs(a[i] - a[i - 1]));
-    }
-    auto gcdInRange = [&](int l, int r) {
-        int g = diff[l];
-        for (int i = l + 1; i <= r; ++i) {
-            g = __gcd(g, diff[i]);
-        }
-        return g;
-    };
-    int lo = 0, hi = 0, ans = 0;
-    n = diff.size();
-    while (lo < n and hi < n) {
-        if (gcdInRange(lo, hi) > 1) {
-            ++hi;
-            ans = max(ans, hi - lo + 1);
-        } else {
-            ++lo;
-            if (lo > hi) hi = lo;
-        }
-    }
-    write(ans, "\n");
-}
+void solve() {}
 
 signed main() {
     ios::sync_with_stdio(false);

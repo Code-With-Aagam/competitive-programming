@@ -19,6 +19,15 @@
         "limits": "cpp",
         "deque": "cpp",
         "unordered_set": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "atomic": "cpp",
+        "algorithm": "cpp",
+        "memory_resource": "cpp",
+        "memory": "cpp",
+        "fstream": "cpp",
+        "sstream": "cpp",
+        "stdexcept": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp"
     }
 }
