@@ -51,13 +51,41 @@ void writeContainer(T &t) {
     write("\n");
 }
 
-void solve() {}
+vector<int> dx = {0, 0, 1, -1};
+vector<int> dy = {1, -1, 0, 0};
+
+void dfs(vector<string> &grid, int i, int j, int n, int m) {
+    if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] != '.') {
+        return;
+    }
+    grid[i][j] = '$';
+    for (int k = 0; k < 4; ++k) {
+        dfs(grid, i + dx[k], j + dy[k], n, m);
+    }
+}
+
+void solve() {
+    int n, m;
+    read(n, m);
+    vector<string> grid(n);
+    for (auto &ele : grid) read(ele);
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (grid[i][j] == '.') {
+                dfs(grid, i, j, n, m);
+                ++ans;
+            }
+        }
+    }
+    write(ans);
+}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int T = 1;
-    read(T);
+    // read(T);
     for (int t = 1; t <= T; ++t) {
         solve();
     }
