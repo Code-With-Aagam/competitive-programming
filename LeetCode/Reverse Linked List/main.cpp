@@ -9,16 +9,16 @@
  * };
  */
 class Solution {
-  public:
-	ListNode *reverseList(ListNode *head) {
-		ListNode *previousNode = nullptr;
-		ListNode *currentNode = head;
-		while (currentNode != nullptr) {
-			ListNode *nextNode = currentNode->next;
-			currentNode->next = previousNode;
-			previousNode = currentNode;
-			currentNode = nextNode;
-		}
-		return previousNode;
-	}
+   public:
+    ListNode *reverseList(ListNode *head) {
+        ListNode *previousNode = nullptr;
+        ListNode *currentNode = head;
+        while (currentNode != nullptr) {
+            ListNode *nextNode = currentNode->next;
+            currentNode->next = previousNode;
+            previousNode = currentNode;
+            currentNode = nextNode;
+        }
+        return previousNode;
+    }
 };
