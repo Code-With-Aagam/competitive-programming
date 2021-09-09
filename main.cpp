@@ -52,7 +52,6 @@ void writeContainer(T &t) {
 }
 
 void solve() {
-    
 }
 
 signed main() {
