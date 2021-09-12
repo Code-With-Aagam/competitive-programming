@@ -51,14 +51,21 @@ void writeContainer(T &t) {
     write("\n");
 }
 
-void solve(int tc) {}
+void solve() {
+    vector<int> arr(26);
+    readContainer(arr);
+    for (const auto &ele : arr) {
+        char curr = ele + 'a' - 1;
+        write(curr);
+    }
+}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int T = 1;
-    read(T);
+    // read(T);
     for (int t = 1; t <= T; ++t) {
-        solve(t);
+        solve();
     }
 }

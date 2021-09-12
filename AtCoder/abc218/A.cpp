@@ -51,14 +51,19 @@ void writeContainer(T &t) {
     write("\n");
 }
 
-void solve(int tc) {}
+void solve() {
+    int n;
+    string s;
+    read(n, s);
+    write((s[n - 1] == 'o' ? "Yes" : "No"));
+}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int T = 1;
-    read(T);
+    // read(T);
     for (int t = 1; t <= T; ++t) {
-        solve(t);
+        solve();
     }
 }
