@@ -1,7 +1,7 @@
 import kotlin.math.max
 import kotlin.math.min
 
-private fun readLn() = readLine() ?: ""
+private fun readLn() = readLine()!!
 private fun readLns() = readLn().split(" ")
 private fun readInt() = readLn().toInt()
 private fun readLongs() = readLns().map { it.toLong() }
@@ -23,8 +23,7 @@ fun main() {
     var ans = 0
     for (i in 0 until n) {
         for (j in i + 1 until n) {
-            if (max(arr[i].first, arr[j].first) <=
-                min(arr[i].second, arr[j].second)) {
+            if (max(arr[i].first, arr[j].first) <= min(arr[i].second, arr[j].second)) {
                 ++ans
             }
         }

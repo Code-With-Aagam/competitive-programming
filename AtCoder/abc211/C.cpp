@@ -1,11 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
+#define int long long
+
+signed main() {
     string s, t = "chokudai";
     cin >> s;
     int n = s.size(), mod = 1e9 + 7, m = t.size();
-    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+    for (int i = 1; i <= m; ++i) dp[i][0] = 0;
     for (int j = 0; j <= n; ++j) dp[0][j] = 1;
     for (int i = 1; i <= m; ++i) {
         for (int j = 1; j <= n; ++j) {

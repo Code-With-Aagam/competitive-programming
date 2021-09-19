@@ -1,74 +1,86 @@
-#pragma GCC optimize("O3")
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC optimize("no-stack-protector")
-#pragma GCC optimize("fast-math")
-#pragma GCC optimize("trapv")
-#pragma GCC target("sse4")
-
+/****************************************************
+*   Template for coding contests                    *
+*   Author    :    Sanjeev Sharma                   *
+*   Email     :    thedevelopersanjeev@gmail.com    *
+*****************************************************/
 #include <bits/stdc++.h>
-
 using namespace std;
 
-#define deb(x) cout << #x << " is " << x << "\n"
-#define int long long
-#define mod 1000000007
-#define PI acos(-1)
+#define deb(x) cout << #x << " is " << x << "\n";
 
-// C(n, r) = n! / (r! * (n - r)!)
-// C(n, r) = C(n, n - r)
-// C(n, r) = C(n - 1, r - 1) + C(n - 1, r)
-int nCr (int n, int r) {
-	long double res = 1;
-	r = min (r, n - r);
+class Node{
+    public :
+    int data;
+    Node* left;
+    Node* right;
 
-	for (int i = 1; i <= r; i++)
-		res = res * (n - r + i) / i;
+    Node(int data){
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
+    }
+};
 
-	return (int) (res + 0.01);
+Node* createTree(vector<int> &arr){
+    Node* root = new Node(arr[0]);
+    queue<Node*> q;
+    bool isLeft = true;
+    Node* curr = NULL;
+    q.push(root);
+    int n = arr.size();
+    for(int i = 1; i < n; i++){
+        Node* node = NULL;
+        if(arr[i] != -1){
+            node = new Node(arr[i]);
+            q.push(node);
+        }
+        if(isLeft){
+            curr = q.front();
+            q.pop();
+            curr->left = node;
+            isLeft = false;
+        }
+        else{
+            curr->right = node;
+            isLeft = true;
+        }
+    }
+    return root;    
 }
 
-// (x ^ y) % mod
-int modpow (int x, int y, int m) {
-	x %= m;
-	int res = 1LL;
+void printTopView(Node* node){
+    if(node == NULL)
+        return;
+    queue<Node*> q;
+    map<int, int> mp;
 
-	while (y > 0) {
-		if (y & 1)
-			res = (res * x) % m;
-
-		x = (x * x) % m;
-		y >>= 1;
-	}
-
-	return res;
 }
 
-void solve() {
-	string s;
-	getline (cin, s);
-	set<char> st;
-
-	for (const auto &ch : s) {
-		if (ch != '{' && ch != '}' && ch != ' ' && ch != ',')
-			st.insert (ch);
-	}
-
-	cout << st.size();
-}
-
-int32_t main() {
-	ios_base::sync_with_stdio (false);
-	cin.tie (nullptr);
-	#ifndef ONLINE_JUDGE
-	freopen ("input.txt", "r", stdin);
-	freopen ("output.txt", "w", stdout);
-	#endif
-	int tc = 1;
-	// cin >> tc;
-
-	while (tc--)
-		solve();
-
-	return 0;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    /**
+    vector<int> arr;
+    int ele;
+    while(cin >>ele)
+        arr.push_back(ele);
+    Node* root = createTree(arr);
+    printTopView(root);
+    */
+    set<char> st;
+    char ch;
+    // skip {
+    cin >>ch;
+    while(1){
+        cin >>ch;
+        // reached end
+        if(ch == '}')
+            break;
+        // skip ,
+        if(ch != ',')
+            st.insert(ch);
+    }
+    cout <<st.size();
+    return 0;
 }

@@ -28,54 +28,54 @@ using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_st
 
 template <typename... T>
 void read(T &...args) {
-    ((cin >> args), ...);
+	((cin >> args), ...);
 }
 
 template <typename... T>
 void write(T &&...args) {
-    ((cout << args), ...);
+	((cout << args), ...);
 }
 
 template <typename T>
 void readContainer(T &t) {
-    for (auto &e : t) {
-        read(e);
-    }
+	for (auto &e : t) {
+		read(e);
+	}
 }
 
 template <typename T>
 void writeContainer(T &t) {
-    for (const auto &e : t) {
-        write(e, " ");
-    }
-    write("\n");
+	for (const auto &e : t) {
+		write(e, " ");
+	}
+	write("\n");
 }
 
 void solve(int tc) {
-    string s;
-    read(s);
-    map<char, char> mp;
-    mp['0'] = '0';
-    mp['6'] = '9';
-    mp['9'] = '6';
-    mp['8'] = '8';
-    mp['1'] = '1';
-    for (int i = s.size() - 1; i >= 0; --i) {
-        write(mp[s[i]]);
-    }
+	string s;
+	read(s);
+	map<char, char> mp;
+	mp['0'] = '0';
+	mp['6'] = '9';
+	mp['9'] = '6';
+	mp['8'] = '8';
+	mp['1'] = '1';
+	for (int i = s.size() - 1; i >= 0; --i) {
+		write(mp[s[i]]);
+	}
 }
 
 signed main() {
-    // #ifndef ONLINE_JUDGE
-    // 	freopen("input.txt", "r", stdin);
-    // 	freopen("output.txt", "w", stdout);
-    // #endif
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int tc = 1;
-    // read(tc);
-    for (int curr = 1; curr <= tc; ++curr) {
-        solve(curr);
-    }
-    return 0;
+	// #ifndef ONLINE_JUDGE
+	// 	freopen("input.txt", "r", stdin);
+	// 	freopen("output.txt", "w", stdout);
+	// #endif
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int tc = 1;
+	// read(tc);
+	for (int curr = 1; curr <= tc; ++curr) {
+		solve(curr);
+	}
+	return 0;
 }

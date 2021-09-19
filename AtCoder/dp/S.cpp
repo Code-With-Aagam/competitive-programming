@@ -1,40 +1,75 @@
+#pragma GCC optimize("O3")
+#pragma GCC target("sse4")
+
 #include <bits/stdc++.h>
+
 using namespace std;
 
+#define deb(x) cout << #x << " is " << x << "\n"
 #define int long long
-const int mod = 1e9 + 7;
+#define mod 1000000007
+#define PI acos(-1)
 
-/**
- * Returns count of numbers c such that 1 <= c <= k and c % D = 0
- * 
- * @param
- * s: int, upper limit of numbers.
- * D: int, modulo with this should be zero.
- * i: current index of the number where digit is going to be placed.
- * d: modulo of sum of previous digits i.e. [0, i - 1]
- * flag: denotes restriction, if we can place digits [0, 9] or [0, s[i])
- * dp: for caching already computed values.
- */
-int solve(const string &s, int D, int i, int d, bool flag, vector<vector<vector<int>>> &dp) {
-    if (i == (int)s.size()) {
-        return d == 0;
+template <typename T>
+using min_heap = priority_queue<T, vector<T>, greater<T>>;
+
+template <typename T>
+using max_heap = priority_queue<T>;
+
+template <typename... T>
+void read(T &... args) {
+    ((cin >> args), ...);
+}
+
+template <typename... T>
+void write(T &&... args) {
+    ((cout << args), ...);
+}
+
+template <typename T>
+void readContainer(T &t) {
+    for (auto &e : t) read(e);
+}
+
+template <typename T>
+void writeContainer(T &t) {
+    for (const auto &e : t) write(e, " ");
+    write("\n");
+}
+
+void solve(int tc) {
+    string k;
+    int d;
+    read(k, d);
+    int n = k.size();
+    vector<vector<int>> dp(d, vector<int>(2, 0));
+    dp[0][0] = 1;
+    for (int i = 0; i < n; i++) {
+    	vector<vector<int>> temp(d, vector<int>(2, 0));
+    	for (int s = 0; s < d; s++) {
+    		for (bool ok : {true, false}) {
+    			for (int digit = 0; digit < 10; digit++) {
+    				if (digit > k[i] - '0' && !ok) {
+    					break;
+    				}
+    				temp[(s + digit) % d][ok || (digit < k[i] - '0')] = (temp[(s + digit) % d][ok || (digit < k[i] - '0')] + dp[s][ok]) % mod;
+    			}
+    		}
+    	}
+    	dp = temp;
     }
-    if (dp[i][d][flag] != -1) {
-        return dp[i][d][flag];
-    }
-    int ub = (flag ? s[i] - '0' : 9);
-    int ans = 0;
-    for (int dig = 0; dig <= ub; ++dig) {
-        ans = (ans + solve(s, D, i + 1, (d + D - dig % D) % D, flag && dig == ub, dp)) % mod;
-    }
-    return dp[i][d][flag] = ans;
+    write((dp[0][0] + dp[0][1] - 1 + mod) % mod);
 }
 
 signed main() {
-    string k;
-    int d;
-    cin >> k >> d;
-    vector<vector<vector<int>>> dp(k.size(), vector<vector<int>>(d, vector<int>(2, -1)));
-    cout << (solve(k, d, 0, 0, true, dp) - 1 + mod) % mod;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
+    int tc = 1;
+    // read(tc);
+    for (int curr = 1; curr <= tc; curr++) solve(curr);
     return 0;
 }

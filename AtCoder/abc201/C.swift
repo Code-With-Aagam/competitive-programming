@@ -1,3 +1,4 @@
+
 let s = readLine() ?? ""
 let S = Array(s)
 var answer = 0

@@ -33,8 +33,7 @@ for _ in 0 ..< n {
 var ans = 0
 for i in 0 ..< n {
 	for j in i + 1 ..< n {
-		if max(arr[i][0], arr[j][0]) <= 
-           min(arr[i][1], arr[j][1]) {
+		if max(arr[i][0], arr[j][0]) <= min(arr[i][1], arr[j][1]) {
 			ans += 1
 		}
 	}

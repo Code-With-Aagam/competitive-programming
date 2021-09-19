@@ -1,18 +1,45 @@
-#include <bits/stdc++.h>
-using namespace std;
+/****************************************************
+*   Template for coding contests                    *
+*   Author    :    Sanjeev Sharma                   *
+*   Email     :    thedevelopersanjeev@gmail.com    *
+*****************************************************/
+#pragma GCC optimize ("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize ("unroll-loops")
+#pragma GCC optimize("no-stack-protector,fast-math")
+#pragma GCC target ("sse4")
+#pragma comment(linker, "/stack:200000000")
 
-int main() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> heights(n);
-    for (auto &ele : heights) cin >> ele;
-    vector<int> dp(n, 1e9);
-    dp[0] = 0;
-    for (int i = 1; i < n; ++i) {
-        for (int j = i - k >= 0 ? i - k : 0; j < i; ++j) {
-            dp[i] = min(dp[i], dp[j] + abs(heights[i] - heights[j]));
-        }
-    }
-    cout << dp[n - 1];
-    return 0;
+#include <bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/assoc_container.hpp>
+
+#define deb(x) cout << #x << " is " << x << "\n";
+
+using namespace std;
+using namespace __gnu_pbds;
+
+const double PI = 2 * acos(0.0);
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	long long n, k;
+	cin >>n >>k;
+	vector<long long> h(n);
+	for(long long i = 0; i < n; i++)
+		cin >>h[i];
+	vector<long long> dp(n, INT_MAX);
+	dp[0] = 0;
+	for(long long i = 0; i < n; i++) {
+		for(long long j = i + 1; j <= i + k; j++) {
+			if(j < n) {
+				dp[j] = min(dp[j], dp[i] + abs(h[i] - h[j]));
+			}
+		}
+	}
+	cout <<dp[n-1];
+	return 0;
 }

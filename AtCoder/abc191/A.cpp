@@ -27,52 +27,52 @@ using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_st
 
 template <typename... T>
 void read(T &...args) {
-    ((cin >> args), ...);
+	((cin >> args), ...);
 }
 
 template <typename... T>
 void write(T &&...args) {
-    ((cout << args), ...);
+	((cout << args), ...);
 }
 
 template <typename T>
 void readContainer(T &t) {
-    for (auto &e : t) {
-        read(e);
-    }
+	for (auto &e : t) {
+		read(e);
+	}
 }
 
 template <typename T>
 void writeContainer(T &t) {
-    for (const auto &e : t) {
-        write(e, " ");
-    }
-    write("\n");
+	for (const auto &e : t) {
+		write(e, " ");
+	}
+	write("\n");
 }
 
 auto speedup = []() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    return nullptr;
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	cout.tie(nullptr);
+	return nullptr;
 }();
 
 void solve(int tc) {
-    double V, T, S, D;
-    read(V, T, S, D);
-    double t = D / V;
-    if (t >= T && t <= S) {
-        write("No\n");
-    } else {
-        write("Yes\n");
-    }
+	double V, T, S, D;
+	read(V, T, S, D);
+	double t = D / V;
+	if (t >= T && t <= S) {
+		write("No\n");
+	} else {
+		write("Yes\n");
+	}
 }
 
 signed main() {
-    int tc = 1;
-    // read(tc);
-    for (int curr = 1; curr <= tc; curr++) {
-        solve(curr);
-    }
-    return 0;
+	int tc = 1;
+	// read(tc);
+	for (int curr = 1; curr <= tc; curr++) {
+		solve(curr);
+	}
+	return 0;
 }

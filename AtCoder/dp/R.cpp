@@ -1,47 +1,94 @@
+#pragma GCC optimize("O3")
+#pragma GCC target("sse4")
+
 #include <bits/stdc++.h>
+
 using namespace std;
 
+#define deb(x) cout << #x << " is " << x << "\n"
 #define int long long
-const int mod = 1e9 + 7;
+#define mod 1000000007
+#define PI acos(-1)
 
-vector<vector<int>> multiply(const vector<vector<int>> &a, const vector<vector<int>> &b) {
-    int n = a.size();
+template <typename T>
+using min_heap = priority_queue<T, vector<T>, greater<T>>;
+
+template <typename T>
+using max_heap = priority_queue<T>;
+
+template <typename... T>
+void read(T &... args) {
+    ((cin >> args), ...);
+}
+
+template <typename... T>
+void write(T &&... args) {
+    ((cout << args), ...);
+}
+
+template <typename T>
+void readContainer(T &t) {
+    for (auto &e : t) read(e);
+}
+
+template <typename T>
+void writeContainer(T &t) {
+    for (const auto &e : t) write(e, " ");
+    write("\n");
+}
+
+vector<vector<int>> multiply(vector<vector<int>> &X, vector<vector<int>> &Y, int n) {
     vector<vector<int>> ans(n, vector<int>(n, 0));
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int res = 0;
-            for (int k = 0; k < n; ++k) {
-                res = (res + (a[i][k] * b[k][j])) % mod;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k++) {
+                ans[i][j] = (ans[i][j] + (X[i][k] * Y[k][j]) % mod) % mod;
             }
-            ans[i][j] = res;
         }
     }
     return ans;
 }
 
-vector<vector<int>> binpow(const vector<vector<int>> &arr, int k) {
-    if (k == 1) return arr;
-    if (k % 2 == 0) {
-        vector<vector<int>> temp = multiply(arr, arr);
-        return binpow(temp, k / 2);
-    } else {
-        vector<vector<int>> temp = multiply(arr, arr);
-        return multiply(binpow(temp, k / 2), arr);
+vector<vector<int>> f(vector<vector<int>> &arr, int x, int n) {
+    if (x == 1) {
+        return arr;
     }
+    int y = x / 2;
+    vector<vector<int>> temp = f(arr, y, n);
+    vector<vector<int>> ans = multiply(temp, temp, n);
+    if (x % 2 == 1) {
+        ans = multiply(ans, arr, n);
+    }
+    return ans;
+}
+
+void solve(int tc) {
+    int n, k, ele;
+    read(n, k);
+    vector<vector<int>> arr(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            read(ele);
+            if (ele == 1) {
+                arr[i][j] = 1;
+            }
+        }
+    }
+    arr = f(arr, k, n);
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            ans = (ans + arr[i][j]) % mod;
+        }
+    }
+    write(ans);
 }
 
 signed main() {
-    int n, k;
-    cin >> n >> k;
-    vector<vector<int>> arr(n, vector<int>(n));
-    for (auto &row : arr) {
-        for (auto &ele : row) cin >> ele;
-    }
-    arr = binpow(arr, k);
-    int ans = 0;
-    for (auto &row : arr) {
-        for (auto &ele : row) ans = (ans + ele) % mod;
-    }
-    cout << ans;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int tc = 1;
+    // read(tc);
+    for (int curr = 1; curr <= tc; curr++) solve(curr);
     return 0;
 }

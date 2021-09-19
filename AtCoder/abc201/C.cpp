@@ -5,7 +5,6 @@
 #pragma GCC optimize("fast-math")
 
 #include <bits/stdc++.h>
-
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 
@@ -28,84 +27,84 @@ using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_st
 
 template <typename... T>
 void read(T &...args) {
-    ((cin >> args), ...);
+	((cin >> args), ...);
 }
 
 template <typename... T>
 void write(T &&...args) {
-    ((cout << args), ...);
+	((cout << args), ...);
 }
 
 template <typename T>
 void readContainer(T &t) {
-    for (auto &e : t)
-        read(e);
+	for (auto &e : t)
+		read(e);
 }
 
 template <typename T>
 void writeContainer(T &t) {
-    for (const auto &e : t)
-        write(e, " ");
+	for (const auto &e : t)
+		write(e, " ");
 
-    write("\n");
+	write("\n");
 }
 
 string gen(int n) {
-    string s = to_string(n);
+	string s = to_string(n);
 
-    while (s.size() < 4)
-        s = "0" + s;
+	while (s.size() < 4)
+		s = "0" + s;
 
-    return s;
+	return s;
 }
 
 void solve(int tc) {
-    string s;
-    read(s);
-    int ans = 0;
+	string s;
+	read(s);
+	int ans = 0;
 
-    for (int i = 0; i <= 9999; ++i) {
-        string curr = gen(i);
-        bool good = true;
+	for (int i = 0; i <= 9999; ++i) {
+		string curr = gen(i);
+		bool good = true;
 
-        for (int d = 0; d < 10; d++) {
-            if (s[d] == 'o') {
-                int cnt = 0;
+		for (int d = 0; d < 10; d++) {
+			if (s[d] == 'o') {
+				int cnt = 0;
 
-                for (int j = 0; j < 4; ++j) {
-                    if (curr[j] - '0' == d)
-                        ++cnt;
-                }
+				for (int j = 0; j < 4; ++j) {
+					if (curr[j] - '0' == d)
+						++cnt;
+				}
 
-                if (cnt == 0)
-                    good = false;
+				if (cnt == 0)
+					good = false;
 
-            } else if (s[d] == 'x') {
-                for (int j = 0; j < 4; ++j) {
-                    if (curr[j] - '0' == d)
-                        good = false;
-                }
-            }
-        }
+			} else if (s[d] == 'x') {
+				for (int j = 0; j < 4; ++j) {
+					if (curr[j] - '0' == d)
+						good = false;
+				}
+			}
+		}
 
-        if (good) ++ans;
-    }
+		if (good) ++ans;
+	}
 
-    write(ans, "\n");
+	write(ans, "\n");
 }
 
 signed main() {
-    // #ifndef ONLINE_JUDGE
-    //  freopen("input.txt", "r", stdin);
-    //  freopen("output.txt", "w", stdout);
-    // #endif
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int tc = 1;
-    // read(tc);
+	// #ifndef ONLINE_JUDGE
+	//  freopen("input.txt", "r", stdin);
+	//  freopen("output.txt", "w", stdout);
+	// #endif
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int tc = 1;
+	// read(tc);
 
-    for (int curr = 1; curr <= tc; ++curr)
-        solve(curr);
+	for (int curr = 1; curr <= tc; ++curr)
+		solve(curr);
 
-    return 0;
+	return 0;
 }

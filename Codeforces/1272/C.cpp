@@ -1,80 +1,47 @@
-#pragma GCC optimize("O3")
-#pragma GCC target("sse4")
+/****************************************************
+*   Template for coding contests                    *
+*   Author    :    Sanjeev Sharma                   *
+*   Email     :    thedevelopersanjeev@gmail.com    *
+*****************************************************/
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
 
 #include <bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/assoc_container.hpp>
 
 using namespace std;
 
-#define deb(x) cout << #x << " is " << x << "\n"
-#define int long long
-#define mod 1000000007
-#define PI acos(-1)
-
-template <typename T>
-using min_heap = priority_queue<T, vector<T>, greater<T>>;
-
-template <typename T>
-using max_heap = priority_queue<T>;
-
-template <typename... T>
-void read(T &... args) {
-    ((cin >> args), ...);
-}
-
-template <typename... T>
-void write(T &&... args) {
-    ((cout << args), ...);
-}
-
-template <typename T>
-void readContainer(T &t) {
-    for (auto &e : t) read(e);
-}
-
-template <typename T>
-void writeContainer(T &t) {
-    for (const auto &e : t) write(e, " ");
-    write("\n");
-}
-
-void solve(int tc) {
-    int n, k;
-    string s;
-    char ele;
-    set<char> keys;
-    read(n, k, s);
-    for (int i = 0; i < k; i++) {
-        read(ele);
-        keys.insert(ele);
-    }
-    vector<int> arr(n, 0);
-    for (int i = 0; i < n; i++) {
-        if (keys.count(s[i]) > 0) {
-            arr[i] = 1;
-        }
-    }
-    vector<int> dp(n + 1, 0);
-    dp[0] = 0;
-    for (int i = 1; i <= n; i++) {
-        if (arr[i - 1] == 0) {
-            dp[i] = 0;
-        } else {
-            dp[i] = dp[i - 1] + 1;
-        }
-    }
-    int ans = accumulate(dp.begin(), dp.end(), 0LL);
-    write(ans);
-}
-
-int32_t main() {
+int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-    int tc = 1;
-    // read(tc);
-    for (int curr = 1; curr <= tc; curr++) solve(curr);
+    cout.tie(NULL);
+    long long n, k;
+    string s;
+    char c;
+    cin >>n >>k;
+    cin >>s;
+    unordered_map<char, int> mp;
+    for(long long i = 0; i < k; i++){
+        cin >>c;
+        mp[c] = 1;
+    }
+    vector<bool> flag(n, false);
+    for(long long i = 0; i < n; i++){
+        if(mp[s[i]] == 1)
+            flag[i] = true;
+    }
+    long long ans = 0, temp = 0;
+    for(auto f : flag){
+        if(f == false){
+            ans += (temp * (temp + 1)) / 2;
+            temp = 0;
+        }
+        else 
+            temp++;
+    }
+    if(flag[n-1] == true)
+        ans += (temp * (temp + 1)) / 2;    
+    cout <<ans <<"\n";
     return 0;
 }

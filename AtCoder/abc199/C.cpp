@@ -72,14 +72,10 @@ void solve(int tc) {
             if (!flag) {
                 swap(s[ai - 1], s[bi - 1]);
             } else {
-                if (ai <= n)
-                    ai += n;
-                else
-                    ai -= n;
-                if (bi <= n)
-                    bi += n;
-                else
-                    bi -= n;
+                if (ai <= n) ai += n;
+                else ai -= n;
+                if (bi <= n) bi += n;
+                else bi -= n;
                 swap(s[ai - 1], s[bi - 1]);
             }
         }
@@ -93,10 +89,10 @@ void solve(int tc) {
 }
 
 signed main() {
-    // #ifndef ONLINE_JUDGE
-    //     freopen("input.txt", "r", stdin);
-    //     freopen("output.txt", "w", stdout);
-    // #endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int tc = 1;

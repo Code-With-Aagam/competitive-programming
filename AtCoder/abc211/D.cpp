@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
+#define int long long
+
+signed main() {
     int n, m, u, v, mod = 1e9 + 7;
     cin >> n >> m;
     vector<int> adj[n];

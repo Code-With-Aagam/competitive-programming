@@ -1,34 +1,63 @@
+#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("no-stack-protector")
+#pragma GCC optimize("fast-math")
+#pragma GCC optimize("trapv")
+#pragma GCC target("sse4")
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/assoc_container.hpp>
+
 using namespace std;
+using namespace __gnu_pbds;
 
+#define deb(x) cout << #x << " is " << x << "\n"
 #define int long long
-const int mod = 1e9 + 7;
+#define mod 1000000007LL
+#define PI acosl(-1)
 
-void dfs(vector<int> adj[], vector<bool> &visited, vector<vector<int>> &dp, int u) {
-    visited[u] = true;
-    dp[u][0] = dp[u][1] = 1;
-    for (const auto &v : adj[u]) {
-        if (visited[v]) continue;
-        dfs(adj, visited, dp, v);
-        dp[u][0] = (dp[u][0] * dp[v][1]) % mod;
-        dp[u][1] = (dp[u][1] * (dp[v][0] + dp[v][1]) % mod) % mod;
-    }
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+pair<int, int> dfs(vector<int> adj[], int a, int b)
+{
+	int white = 1, black = 0;
+	for (const auto &u : adj[a])
+	{
+		if (u != b)
+		{
+			auto curr = dfs(adj, u, a);
+			int temp = white;
+			white = (white * curr.second) % mod;
+			black = ((temp * curr.first) % mod + (black * (curr.first + curr.second)) % mod) % mod;
+		}
+	}
+	return {white, white + black};
 }
 
-signed main() {
-    int n, u, v;
-    cin >> n;
-    vector<int> adj[n];
-    for (int i = 1; i < n; ++i) {
-        cin >> u >> v;
-        --u;
-        --v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-    vector<vector<int>> dp(n, vector<int>(2, 0));
-    vector<bool> visited(n, false);
-    dfs(adj, visited, dp, 0);
-    cout << (dp[0][0] + dp[0][1]) % mod;
-    return 0;
+void solve()
+{
+	int n, x, y;
+	cin >> n;
+	vector<int> adj[n];
+	for (int i = 0; i < n - 1; i++)
+	{
+		cin >> x >> y;
+		x--;
+		y--;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	auto p = dfs(adj, 0, 0);
+	cout << (p.first + p.second) % mod;
+}
+
+int32_t main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+	solve();
+	return 0;
 }

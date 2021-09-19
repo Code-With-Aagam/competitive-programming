@@ -1,3 +1,4 @@
+
 var s = readLine() ?? ""
 let n = Int64(s) ?? Int64(0)
 let arr = readLine()?.split(separator: " ").map({ Int64($0) ?? Int64(0) }) ?? []

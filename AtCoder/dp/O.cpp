@@ -1,30 +1,59 @@
+#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("no-stack-protector")
+#pragma GCC optimize("fast-math")
+#pragma GCC optimize("trapv")
+#pragma GCC target("sse4")
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/assoc_container.hpp>
+
 using namespace std;
+using namespace __gnu_pbds;
 
-const int mod = 1e9 + 7;
+#define deb(x) cout << #x << " is " << x << "\n"
+#define int long long
+#define mod 1000000007LL
+#define PI acosl(-1)
 
-int solve(const vector<vector<int>> &arr, vector<vector<int>> &dp, int i, int mask, int n) {
-    if (i == n) return mask == 0;
-    if (dp[i][mask] != -1) return dp[i][mask];
-    int ans = 0;
-    for (int w = 0; w < n; ++w) {
-        bool ok = ((1 << w) & mask) != 0;
-        if (ok && arr[i][w] == 1) {
-            ans = (ans + solve(arr, dp, i + 1, mask ^ (1 << w), n)) % mod;
-        }
-    }
-    return dp[i][mask] = ans;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+void solve()
+{
+	int n;
+	cin >> n;
+	vector<vector<int>> arr(n, vector<int>(n));
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cin >> arr[i][j];
+		}
+	}
+	vector<int> dp(1LL << n);
+	dp[0] = 1;
+	for (int mask = 0; mask < (1LL << n) - 1; mask++)
+	{
+		int a = __builtin_popcount(mask);
+		for (int b = 0; b < n; b++)
+		{
+			if (arr[a][b] == 1 && (mask & (1LL << b)) == 0)
+			{
+				int newmask = mask ^ (1LL << b);
+				dp[newmask] = (dp[newmask] + dp[mask]) % mod;
+			}
+		}
+	}
+	cout << dp[(1LL << n) - 1];
 }
 
-int main() {
-    int n;
-    cin >> n;
-    vector<vector<int>> arr(n, vector<int>(n));
-    for (auto &row : arr) {
-        for (auto &ele : row) cin >> ele;
-    }
-    vector<vector<int>> dp(n, vector<int>(1 << n, -1));
-    int ans = solve(arr, dp, 0, (1 << n) - 1, n);
-    cout << ans;
-    return 0;
+int32_t main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+	solve();
+	return 0;
 }

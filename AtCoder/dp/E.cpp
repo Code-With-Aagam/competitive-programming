@@ -1,35 +1,54 @@
+/****************************************************
+*   Template for coding contests                    *
+*   Author    :    Sanjeev Sharma                   *
+*   Email     :    thedevelopersanjeev@gmail.com    *
+*****************************************************/
+#pragma GCC optimize ("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize ("unroll-loops")
+#pragma GCC optimize("no-stack-protector,fast-math")
+#pragma GCC target ("sse4")
+#pragma comment(linker, "/stack:200000000")
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/assoc_container.hpp>
+
+#define deb(x) cout << #x << " is " << x << "\n";
+
 using namespace std;
+using namespace __gnu_pbds;
 
-#define int long long
-#define infinity 0x3f3f3f3f
+const double PI = 2 * acos(0.0);
+const long long INF = 1e18L + 5;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-signed main() {
-    int n, W;
-    cin >> n >> W;
-    vector<int> w(n), v(n);
-    for (int i = 0; i < n; ++i) cin >> w[i] >> v[i];
-    int maxValue = *max_element(cbegin(v), cend(v));
-    maxValue *= n;
-    vector<vector<int>> dp(n, vector<int>(maxValue + 1, infinity));
-    for (int i = 0; i < n; ++i) {
-        dp[i][0] = 0;
-    }
-    dp[0][v[0]] = w[0];
-    for (int i = 1; i < n; ++i) {
-        for (int j = 1; j <= maxValue; ++j) {
-            if (v[i] <= j) {
-                dp[i][j] = min(dp[i - 1][j], w[i] + dp[i - 1][j - v[i]]);
-            } else {
-                dp[i][j] = dp[i - 1][j];
-            }
-        }
-    }
-    for (int j = maxValue; j >= 0; --j) {
-        if (dp[n - 1][j] <= W) {
-            cout << j;
-            break;
-        }
-    }
-    return 0;
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	long long N, W;
+	cin >>N >>W;
+	vector<pair<long long, long long>> arr(N);
+	long long totalValue = 0LL;
+	for(long long i = 0LL; i < N; i++){
+		cin >>arr[i].first >>arr[i].second;
+		totalValue += arr[i].second;
+	}
+	// dp[i] = minimum total weight with value exactly i
+	vector<long long> dp(totalValue + 1LL, INF);
+	dp[0] = 0LL;
+	for(long long i = 0LL; i < N; i++) {
+		for(long long v = totalValue - arr[i].second; v >= 0LL; v--) {
+			dp[v + arr[i].second] = min(dp[v + arr[i].second], dp[v] + arr[i].first);
+		}
+	}
+	long long ans = 0LL;
+	for(long long i = 0LL; i <= totalValue; i++) {
+		if(dp[i] <= W) {
+			ans = max(ans, i);
+		}
+	}
+	cout <<ans;
+	return 0;
 }

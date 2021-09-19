@@ -1,3 +1,4 @@
+
 let s = readLine() ?? ""
 let nk = s.split(separator: " ").map({ Int64($0) ?? Int64(0) })
 var (n, k) = (nk[0], nk[1])
