@@ -10,34 +10,24 @@
  * };
  */
 class Solution {
-  public:
-
-	vector<TreeNode *> cache[21];
-
-	vector<TreeNode *> allPossibleFBT(int n) {
-		if (n % 2 == 0) {
-			return vector<TreeNode *>(0);
-		}
-		if (n == 1) {
-			return vector<TreeNode *>(1, new TreeNode());
-		}
-		if (cache[n].size() > 0) {
-			return cache[n];
-		}
-		vector<TreeNode *> ans;
-		for (int i = 1; i < n - 1; i += 2) {
-			vector<TreeNode *> leftSubtrees = allPossibleFBT(i);
-			vector<TreeNode *> rightSubtrees = allPossibleFBT(n - i - 1);
-			for (const auto &left : leftSubtrees) {
-				for (const auto &right : rightSubtrees) {
-					TreeNode *root = new TreeNode();
-					root->left = left;
-					root->right = right;
-					ans.push_back(root);
-				}
-			}
-		}
-		cache[n] = ans;
-		return ans;
-	}
+public:
+    vector<TreeNode*> allPossibleFBT(int n) {
+        vector<TreeNode*> ans;
+        if (n == 1) {
+        	ans.push_back(new TreeNode());
+        } else if (n % 2 == 1) {
+        	for (int x = 0; x < n; ++x) {
+        		int y = n - 1 - x;
+        		for (const auto &left : allPossibleFBT(x)) {
+        			for (const auto &right : allPossibleFBT(y)) {
+        				TreeNode* node = new TreeNode();
+        				node->left = left;
+        				node->right = right;
+        				ans.push_back(node);
+        			}
+        		}
+        	}
+        }
+        return ans;
+    }
 };
