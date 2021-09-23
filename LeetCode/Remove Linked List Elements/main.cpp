@@ -9,16 +9,15 @@
  * };
  */
 class Solution {
-  public:
-	ListNode *removeElements(ListNode *head, int val) {
-		if (head == nullptr) {
-			return head;
-		}
-		ListNode *next = removeElements(head->next, val);
-		if (head->val == val) {
-			return next;
-		}
-		head->next = next;
-		return head;
-	}
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if (head == nullptr) return head;
+        ListNode* node = removeElements(head->next, val);
+        if (head->val == val) {
+        	return node;
+        } else {
+        	head->next = node;
+        	return head;
+        }
+    }
 };

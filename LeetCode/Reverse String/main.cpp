@@ -1,11 +1,17 @@
 class Solution {
-  public:
-	void reverseString(vector<char> &s) {
-		int i = 0, j = s.size() - 1;
-		while (i < j) {
-			swap(s[i], s[j]);
-			i++;
-			j--;
+private:
+	void reverseStringRecursive(vector<char>& s, int i, int j) {
+		if (i < j) {
+			char temp = s[i];
+			s[i] = s[j];
+			s[j] = temp;
+			reverseStringRecursive(s, i + 1, j - 1);
 		}
 	}
+
+public:
+    void reverseString(vector<char>& s) {
+        int n = s.size();
+        reverseStringRecursive(s, 0, n - 1);
+    }
 };

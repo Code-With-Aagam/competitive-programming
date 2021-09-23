@@ -9,16 +9,24 @@
  * };
  */
 class Solution {
-   public:
-    ListNode *reverseList(ListNode *head) {
-        ListNode *previousNode = nullptr;
-        ListNode *currentNode = head;
-        while (currentNode != nullptr) {
-            ListNode *nextNode = currentNode->next;
-            currentNode->next = previousNode;
-            previousNode = currentNode;
-            currentNode = nextNode;
+private:
+    ListNode* reverseListRecursive(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode* ans = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return ans;
+    }
+
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* curr = head, *prev = nullptr;
+        while (curr != nullptr) {
+            ListNode* temp = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = temp;
         }
-        return previousNode;
+        return prev;
     }
 };
