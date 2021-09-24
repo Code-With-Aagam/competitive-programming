@@ -9,31 +9,37 @@
  * };
  */
 class Solution {
-  public:
-	void reorderList(ListNode *head) {
-		if (head == nullptr || head->next == nullptr) {
-			return;
+private:
+	ListNode* reverseList(ListNode* head) {
+		ListNode* curr = head, *prev = nullptr;
+		while (curr != nullptr) {
+			ListNode* node = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = node;
 		}
-		ListNode *p1 = head, *p2 = head;
-		while (p2->next != nullptr && p2->next->next != nullptr) {
-			p1 = p1->next;
-			p2 = p2->next->next;
-		}
-		ListNode *previousMiddle = p1, *previousCurrent = p1->next;
-		while (previousCurrent->next != nullptr) {
-			ListNode *current = previousCurrent->next;
-			previousCurrent->next = current->next;
-			current->next = previousMiddle->next;
-			previousMiddle->next = current;
-		}
-		p1 = head;
-		p2 = previousMiddle->next;
-		while (p1 != previousMiddle) {
-			previousMiddle->next = p2->next;
-			p2->next = p1->next;
-			p1->next = p2;
-			p1 = p2->next;
-			p2 = previousMiddle->next;
-		}
+		return prev;
 	}
+public:
+    void reorderList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return;
+        
+        ListNode* slow = head, *fast = head, *prev = nullptr;
+        while (fast != nullptr && fast->next != nullptr) {
+        	prev = slow;
+        	slow = slow->next;
+        	fast = fast->next->next;
+        }
+        prev->next = nullptr;
+        ListNode* revHead = reverseList(slow);
+    	while (head != nullptr) {
+    		ListNode* headNext = head->next;
+    		ListNode* revHeadNext = revHead->next;
+    		head->next = revHead;
+    		if (headNext == nullptr) break;
+    		revHead->next = headNext;
+    		head = headNext;
+    		revHead = revHeadNext;
+    	}
+    }
 };
