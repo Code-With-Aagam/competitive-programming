@@ -1,0 +1,76 @@
+#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("no-stack-protector")
+#pragma GCC optimize("fast-math")
+
+#include <bits/stdc++.h>
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace std;
+using namespace __gnu_pbds;
+
+#define deb(x) cout << #x << " is " << x << "\n"
+#define int long long
+#define MOD 1000000007LL
+#define PI acos(-1)
+
+template <typename T>
+using min_heap = priority_queue<T, vector<T>, greater<T>>;
+
+template <typename T>
+using max_heap = priority_queue<T>;
+
+template <class T>
+using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+template <typename... T>
+void read(T &...args) {
+    ((cin >> args), ...);
+}
+
+template <typename... T>
+void write(T &&...args) {
+    ((cout << args), ...);
+}
+
+template <typename T>
+void readContainer(T &t) {
+    for (auto &e : t) {
+        read(e);
+    }
+}
+
+template <typename T>
+void writeContainer(T &t) {
+    for (const auto &e : t) {
+        write(e, " ");
+    }
+    write("\n");
+}
+
+void solve(int tc) {
+    int P, a, b, c, x, y, ans = 0;
+    read(P, a, b, c, x, y);
+    int c1 = a * x + b;
+    int c2 = a * y + c;
+    for (int n = 0; n * c1 <= P; ++n) {
+        // if ((P - c1 * n) % c2 == 0) {
+            int m = (P - c1 * n) / c2;
+            ans = max(ans, n + m);
+        // }
+    }
+    write(ans, "\n");
+}
+
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int T = 1;
+    read(T);
+    for (int t = 1; t <= T; ++t) {
+        solve(t);
+    }
+}
