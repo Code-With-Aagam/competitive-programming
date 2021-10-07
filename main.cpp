@@ -1,11 +1,4 @@
-#pragma GCC optimize("O3")
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC optimize("no-stack-protector")
-#pragma GCC optimize("fast-math")
-
 #include <bits/stdc++.h>
-
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 
@@ -14,8 +7,9 @@ using namespace __gnu_pbds;
 
 #define deb(x) cout << #x << " is " << x << "\n"
 #define int long long
-#define MOD 1000000007LL
-#define PI acos(-1)
+
+const int mod = 1000000007LL;
+const long double pi = acos(-1);
 
 template <typename T>
 using min_heap = priority_queue<T, vector<T>, greater<T>>;
@@ -52,7 +46,7 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-    
+
 }
 
 signed main() {
