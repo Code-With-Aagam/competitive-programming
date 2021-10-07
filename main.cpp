@@ -51,9 +51,12 @@ void writeContainer(T &t) {
     write("\n");
 }
 
-void solve(int tc) {}
+void solve(int tc) {
+    
+}
 
 signed main() {
+    auto start = chrono::high_resolution_clock::now();
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int T = 1;
@@ -61,4 +64,7 @@ signed main() {
     for (int t = 1; t <= T; ++t) {
         solve(t);
     }
+    auto end = chrono::high_resolution_clock::now();
+	chrono::duration<double, std::milli> duration = end - start;
+	cout << "Time Taken = " << duration.count() << " ms" << "\n";
 }
