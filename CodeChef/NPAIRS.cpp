@@ -46,7 +46,25 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-    
+    int N;
+    read(N);
+    string S;
+    read(S);
+    map<int, int> mapOne, mapTwo;
+    int ans = 0;
+    for (int i = 0; i < N; ++i) {
+        int Si = S[i] - '0';
+        // if (Si != 0) {
+            ans += mapOne[i - Si];
+            ans += mapTwo[i + Si];
+            mapOne[i - Si]++;
+            mapTwo[i + Si]++;
+        // } else {
+        //     ans += mapOne[i - Si];
+        //     mapOne[i - Si]++;
+        // }
+    }
+    write(ans, "\n");
 }
 
 signed main() {

@@ -46,7 +46,9 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-    
+    int N, X, Y;
+    read(N, X, Y);
+    write((Y * (N + 1) >= X ? "YES\n" : "NO\n"));
 }
 
 signed main() {
