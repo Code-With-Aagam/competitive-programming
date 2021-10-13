@@ -46,7 +46,7 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-    
+
 }
 
 signed main() {
@@ -60,5 +60,5 @@ signed main() {
     }
     auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	// cout << "Time Taken = " << duration.count() << " ms" << "\n";
+	cout << "Time Taken = " << duration.count() << " ms" << "\n";
 }
