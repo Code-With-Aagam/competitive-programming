@@ -8,20 +8,21 @@
  */
 vector<int> solve(Tree *root) {
 	vector<int> ans;
-	queue<Tree *> q;
-	if (root == nullptr) {
-		return ans;
-	}
+	if (root == nullptr) return ans;
+	queue<Tree*> q;
 	q.push(root);
 	while (!q.empty()) {
-		root = q.front();
-		q.pop();
-		ans.push_back(root->val);
-		if (root->left != nullptr) {
-			q.push(root->left);
-		}
-		if (root->right != nullptr) {
-			q.push(root->right);
+		int len = q.size();
+		while (len--) {
+			auto node = q.front();
+			q.pop();
+			ans.push_back(node->val);
+			if (node -> left != nullptr) {
+				q.push(node -> left);
+			}
+			if (node -> right != nullptr) {
+				q.push(node -> right);
+			}
 		}
 	}
 	return ans;
