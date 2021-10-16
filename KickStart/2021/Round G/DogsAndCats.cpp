@@ -46,7 +46,33 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+    int N, D, C, M;
+    read(N, D, C, M);
+    string S;
+    read(S);
+    bool done = true;
+    for (int i = 0; i < N; ++i) {
+        char ch = S[i];
+        if (ch == 'C') {
+            if (C <= 0) {
+                int j = i + 1;
+                while (j < N && S[j] == 'C') ++j;
+                if (j < N && S[j] == 'D') {
+                    done = false;
+                }
+                break;
+            }
+            C -= 1;
+        } else {
+            if (D <= 0) {
+                done = false;
+                break;
+            }
+            D -= 1;
+            C += M;
+        }
+    }
+    write("Case #", tc, ": ", (done ? "YES\n" : "NO\n"));
 }
 
 signed main() {
@@ -60,5 +86,5 @@ signed main() {
     }
     auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-    write("Time Taken = ", duration.count(), " ms\n");
+    // write("Time Taken = ", duration.count(), " ms\n");
 }
