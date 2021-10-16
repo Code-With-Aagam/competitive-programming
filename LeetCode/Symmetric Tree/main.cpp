@@ -10,41 +10,14 @@
  * };
  */
 class Solution {
-  public:
-	bool isSymmetric(TreeNode *root) {
-		queue<TreeNode *> q;
-		q.push(root);
-		q.push(root);
-		while (!q.empty()) {
-			TreeNode *x = q.front();
-			q.pop();
-			TreeNode *y = q.front();
-			q.pop();
-			if (x == nullptr && y == nullptr) {
-				continue;
-			}
-			if (x == nullptr || y == nullptr) {
-				return false;
-			}
-			if (x->val != y->val) {
-				return false;
-			}
-			q.push(x->left);
-			q.push(y->right);
-			q.push(x->right);
-			q.push(y->left);
-		}
-		return true;
+private:
+	bool check(TreeNode *left, TreeNode *right) {
+		if (left == nullptr || right == nullptr) return left == right;
+		if (left -> val != right -> val) return false;
+		return check(left -> right, right -> left) and check(left -> left, right -> right);
 	}
-
-  private:
-	bool isMirror(TreeNode *x, TreeNode *y) {
-		if (x == nullptr && y == nullptr) {
-			return true;
-		}
-		if (x == nullptr || y == nullptr) {
-			return false;
-		}
-		return x->val == y->val && isMirror(x->left, y->right) && isMirror(x->right, y->left);
-	}
+public:
+    bool isSymmetric(TreeNode* root) {
+		return check(root, root);
+    }
 };

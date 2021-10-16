@@ -10,21 +10,17 @@
  * };
  */
 class Solution {
-  public:
-
-	int findHeight(TreeNode *root) {
-		if (root == nullptr) {
-			return 0;
-		}
-		return 1 + max(findHeight(root->left), findHeight(root->right));
+private:
+	int isBalancedRecursive(TreeNode* root) {
+		if (root == nullptr) return 0;
+		int lh = isBalancedRecursive(root -> left);
+		int rh = isBalancedRecursive(root -> right);
+        if (lh == -1 || rh == -1) return -1;
+		if (abs(lh - rh) > 1) return -1;
+		return 1 + max(lh, rh);
 	}
-
-	bool isBalanced(TreeNode *root) {
-		if (root == nullptr) {
-			return true;
-		}
-		int lHeight = findHeight(root->left);
-		int rHeight = findHeight(root->right);
-		return abs(lHeight - rHeight) <= 1 && isBalanced(root->left) && isBalanced(root->right);
-	}
+public:
+    bool isBalanced(TreeNode* root) {
+        return isBalancedRecursive(root) != -1;
+    }
 };

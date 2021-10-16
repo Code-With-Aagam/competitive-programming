@@ -10,25 +10,28 @@
  * };
  */
 class Solution {
-   public:
-    vector<int> rightSideView(TreeNode *root) {
-        rightSideViewUtil(root, 0);
+public:
+    vector<int> rightSideView(TreeNode* root) {
         vector<int> ans;
-        for (const auto &ele : mp) {
-            ans.push_back(ele.second);
+        if (root == nullptr) return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int len = q.size();
+            int rightMost = -1;
+            while (len--) {
+                auto node = q.front();
+                q.pop();
+                rightMost = node -> val;
+                if (node -> left != nullptr) {
+                    q.push(node -> left);
+                }
+                if (node -> right != nullptr) {
+                    q.push(node -> right);
+                }
+            }
+            ans.push_back(rightMost);
         }
         return ans;
-    }
-
-   private:
-    map<int, int> mp;
-
-    void rightSideViewUtil(TreeNode *root, int depth) {
-        if (root == nullptr) {
-            return;
-        }
-        mp[depth] = root->val;
-        rightSideViewUtil(root->left, depth + 1);
-        rightSideViewUtil(root->right, depth + 1);
     }
 };

@@ -10,22 +10,20 @@
  * };
  */
 class Solution {
-   public:
-    int diameterOfBinaryTree(TreeNode* root) {
-        dfs(root);
-        return ans;
+private:
+    int diameter;
+
+    int diameterOfBinaryTreeRecursive(TreeNode* root) {
+        if (root == nullptr) return 0;
+        int lh = diameterOfBinaryTreeRecursive(root -> left);
+        int rh = diameterOfBinaryTreeRecursive(root -> right);
+        diameter = max(diameter, lh + rh);
+        return 1 + max(lh, rh);
     }
-
-   private:
-    int ans = 0;
-
-    int dfs(TreeNode* root) {
-        if (root == nullptr) {
-            return 0;
-        }
-        int left = dfs(root->left);
-        int right = dfs(root->right);
-        ans = max(ans, left + right);
-        return max(left, right) + 1;
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        diameter = 0;
+        diameterOfBinaryTreeRecursive(root);
+        return diameter;
     }
 };

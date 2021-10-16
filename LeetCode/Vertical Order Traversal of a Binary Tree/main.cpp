@@ -10,32 +10,34 @@
  * };
  */
 class Solution {
-  public:
-	vector<vector<int>> verticalTraversal(TreeNode *root) {
-		queue<pair<TreeNode *, pair<int, int>>> q;
-		map<int, map<int, set<int>>> nodes;
-		q.push({root, {0, 0}});
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        vector<vector<int>> answer;
+		queue<tuple<TreeNode*, int, int>> q;
+		map<int, map<int, multiset<int>>> mp;
+		if (root == nullptr) return answer;
+		q.push(make_tuple(root, 0, 0));
 		while (!q.empty()) {
-			auto curr = q.front();
+			auto [node, line, level] = q.front();
 			q.pop();
-			TreeNode *node = curr.first;
-			int x = curr.second.first, y = curr.second.second;
-			nodes[x][y].insert(node->val);
-			if (node->left != nullptr) {
-				q.push({node->left, {x - 1, y + 1}});
+			mp[line][level].insert(node -> val);
+			if (node -> left != nullptr) {
+				q.push(make_tuple(node -> left, line - 1, level + 1));
 			}
-			if (node->right != nullptr) {
-				q.push({node->right, {x + 1, y + 1}});
+			if (node -> right != nullptr) {
+				q.push(make_tuple(node -> right, line + 1, level + 1));
 			}
 		}
-		vector<vector<int>> ans;
-		for (const auto &ele : nodes) {
-			vector<int> temp;
-			for (const auto &x : ele.second) {
-				temp.insert(temp.end(), x.second.begin(), x.second.end());
-			}
-			ans.push_back(temp);
-		}
-		return ans;
-	}
+        for (const auto &level : mp) {
+            auto levelValue = level.second;
+            vector<int> curr;
+            for (const auto &set : levelValue) {
+                for (const auto &ele : set.second) {
+                    curr.push_back(ele);
+                }
+            }
+            answer.push_back(curr);
+        }
+		return answer;
+    }
 };

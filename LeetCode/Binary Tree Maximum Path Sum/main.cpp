@@ -10,23 +10,22 @@
  * };
  */
 class Solution {
-  public:
+private:
+	int answer = 0;
 
-	int ans;
-
-	int dfs(TreeNode *root) {
-		if (root == nullptr) {
-			return 0;
-		}
-		int left = dfs(root->left);
-		int right = dfs(root->right);
-		ans = max(ans, left + right + root->val);
-		return max(0, root->val + max(left, right));
+	int maxPathSumRecursive(TreeNode *root) {
+		if (root == nullptr) return 0;
+		int ls = maxPathSumRecursive(root -> left);
+		int rs = maxPathSumRecursive(root -> right);
+		if (ls < 0) ls = 0;
+		if (rs < 0) rs = 0;
+		answer = max(answer, ls + rs + root -> val);
+		return root -> val + max(ls, rs);
 	}
-
-	int maxPathSum(TreeNode *root) {
-		ans = INT_MIN;
-		dfs(root);
-		return ans;
-	}
+public:
+    int maxPathSum(TreeNode* root) {
+        answer = INT_MIN;
+		maxPathSumRecursive(root);
+		return answer;
+    }
 };
