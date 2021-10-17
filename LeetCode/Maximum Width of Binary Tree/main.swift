@@ -14,30 +14,35 @@
  * }
  */
 class Solution {
-	func rightSideView(_ root: TreeNode?) -> [Int] {
-		var ans = [Int]()
+	func widthOfBinaryTree(_ root: TreeNode?) -> Int {
 		if let root = root {
-			var q = [TreeNode]()
-			q.append(root)
+			var q = [(TreeNode, Int)]()
+			var ans = 0
+			q.append((root, 1))
 			while !q.isEmpty {
 				var len = q.count
-				var lastNode = -1
+				var mx = Int.min
+				var mn = Int.max
+				let offset = q.first?.1 ?? 0
 				while len > 0 {
-					let node = q.removeFirst()
-					lastNode = node.val
+					let curr = q.removeFirst()
+					let node = curr.0
+					let level = curr.1 - offset
+					mx = max(mx, level)
+					mn = min(mn, level)
 					if let left = node.left {
-						q.append(left)
+						q.append((left, 2 * level))
 					}
 					if let right = node.right {
-						q.append(right)
+						q.append((right, 2 * level + 1))
 					}
 					len -= 1
 				}
-				ans.append(lastNode)
+				ans = max(ans, mx - mn + 1)
 			}
 			return ans
 		} else {
-			return ans
+			return 0
 		}
 	}
 }

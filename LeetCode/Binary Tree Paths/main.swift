@@ -14,17 +14,25 @@
  * }
  */
 class Solution {
-	private func isSymmetric(_ left: TreeNode?, _ right: TreeNode?) -> Bool {
-		if left == nil || right == nil {
-			return left == nil && right == nil
+	
+	private var ans = [String]()
+	
+	private func solve(_ root: TreeNode?, _ path: String) {
+		if let root = root {
+			if root.left == nil && root.right == nil {
+				ans.append("\(path)\(root.val)")
+			} else {
+				solve(root.left, "\(path)\(root.val)->")
+				solve(root.right, "\(path)\(root.val)->")
+			}
+		} else {
+			return
 		}
-		if left?.val != right?.val {
-			return false
-		}
-		return isSymmetric(left?.left, right?.right) && isSymmetric(left?.right, right?.left)
 	}
 	
-	func isSymmetric(_ root: TreeNode?) -> Bool {
-		return isSymmetric(root, root)
+	func binaryTreePaths(_ root: TreeNode?) -> [String] {
+		ans = [String]()
+		solve(root, "")
+		return ans
 	}
 }

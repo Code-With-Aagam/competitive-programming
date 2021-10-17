@@ -14,17 +14,11 @@
  * }
  */
 class Solution {
-	private func isSymmetric(_ left: TreeNode?, _ right: TreeNode?) -> Bool {
-		if left == nil || right == nil {
-			return left == nil && right == nil
-		}
-		if left?.val != right?.val {
-			return false
-		}
-		return isSymmetric(left?.left, right?.right) && isSymmetric(left?.right, right?.left)
-	}
-	
-	func isSymmetric(_ root: TreeNode?) -> Bool {
-		return isSymmetric(root, root)
+	func hasPathSum(_ root: TreeNode?, _ targetSum: Int) -> Bool {
+		if root?.left == nil && root?.right == nil {
+            return targetSum == root?.val
+        } else {
+            return hasPathSum(root?.left, targetSum - (root?.val ?? 0)) || hasPathSum(root?.right, targetSum - (root?.val ?? 0))
+        }
 	}
 }

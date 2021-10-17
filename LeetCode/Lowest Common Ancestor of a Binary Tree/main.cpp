@@ -8,45 +8,13 @@
  * };
  */
 class Solution {
-  public:
-
-	unordered_map<TreeNode *, int> level;
-	unordered_map<TreeNode *, TreeNode *> parent;
-
-	void dfs(TreeNode *root) {
-		if (root == nullptr) {
-			return;
-		}
-		if (root->left != nullptr) {
-			parent[root->left] = root;
-			level[root->left] = level[root] + 1;
-			dfs(root->left);
-		}
-		if (root->right != nullptr) {
-			parent[root->right] = root;
-			level[root->right] = level[root] + 1;
-			dfs(root->right);
-		}
-	}
-
-	TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
-		parent[root] = root;
-		level[root] = 0;
-		dfs(root);
-		if (level[p] < level[q]) {
-			swap(p, q);
-		}
-		int d = level[p] - level[q];
-		while (d--) {
-			p = parent[p];
-		}
-		if (p == q) {
-			return p;
-		}
-		while (parent[p] != parent[q]) {
-			p = parent[p];
-			q = parent[q];
-		}
-		return parent[p];
-	}
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == nullptr or root == p or root == q) return root;
+		auto left = lowestCommonAncestor(root -> left, p, q);
+		auto right = lowestCommonAncestor(root -> right, p, q);
+		if (left == nullptr) return right;
+		else if (right == nullptr) return left;
+		else return root;
+    }
 };
