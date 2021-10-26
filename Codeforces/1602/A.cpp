@@ -46,7 +46,17 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+    string s;
+    read(s);
+    int a = 0;
+    for (int i = 1; i < s.size(); ++i) {
+        if (s[i] < s[a]) a = i;
+    }
+    write(s[a], " ");
+    for (int i = 0; i < s.size(); ++i) {
+        if (i != a) write(s[i]);
+    }
+    write("\n");
 }
 
 signed main() {
@@ -59,6 +69,6 @@ signed main() {
         solve(t);
     }
     auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double, milli> duration = end - start;
-    write("Time Taken = ", duration.count(), " ms\n");
+	chrono::duration<double, milli> duration = end - start;
+    // write("Time Taken = ", duration.count(), " ms\n");
 }
