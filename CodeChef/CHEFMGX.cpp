@@ -45,8 +45,34 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve(int tc) {
+const int N = 1e7 + 1;
+bool isprime[N];
+int prime[N];
 
+void sieve() {
+	memset(isprime, true, sizeof(isprime));
+	memset(prime, 0, sizeof(isprime));
+	for (int p = 2; p * p <= N; ++p) {
+		if (isprime[p]) {
+			for (int x = 2 * p; x < N; x += p) {
+				isprime[x] = false;
+			}
+		}
+	}
+	for (int i = 1; i < N; ++i) {
+		if (isprime[i]) {
+			prime[i] = 1 + prime[i - 1];
+		} else {
+			prime[i] = prime[i - 1];
+		}
+	}
+}
+
+void solve(int tc) {
+	int X, Y;
+	read(X, Y);
+	int ans = Y - X - (prime[Y] - prime[X + 1]);
+	write(ans, "\n");
 }
 
 signed main() {
@@ -55,10 +81,11 @@ signed main() {
 	cin.tie(nullptr);
 	int T = 1;
 	read(T);
+	sieve();
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+// 	write("Time Taken = ", duration.count(), " ms\n");
 }
