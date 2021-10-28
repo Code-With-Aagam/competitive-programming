@@ -46,7 +46,13 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	int N;
+	read(N);
+	write("1 1 ");
+	for (int i = 2; i <= (1LL << (N - 1)); i <<= 1) {
+		write(i, " ");
+	}
+	write("\n");
 }
 
 signed main() {
@@ -60,5 +66,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
