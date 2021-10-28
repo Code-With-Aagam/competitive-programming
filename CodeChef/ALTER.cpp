@@ -46,17 +46,14 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-	int N;
-	read(N);
-	vector<int> A(N);
-	readContainer(A);
-	int ans = 0;
-	for (int i = 0; i < N; ++i) {
-		if (A[i] - 1 <= i) {
-			ans += N - i;
-		}
+	int A, B, P, Q;
+	read(A, B, P, Q);
+	if (P % A == 0 && Q % B == 0) {
+		int x = P / A, y = Q / B;
+		write((abs(x - y) <= 1 ? "YES\n" : "NO\n"));
+	} else {
+		write("NO\n");
 	}
-	write(ans, "\n");
 }
 
 signed main() {

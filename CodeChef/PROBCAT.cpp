@@ -46,17 +46,15 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-	int N;
-	read(N);
-	vector<int> A(N);
-	readContainer(A);
-	int ans = 0;
-	for (int i = 0; i < N; ++i) {
-		if (A[i] - 1 <= i) {
-			ans += N - i;
-		}
+	int X;
+	read(X);
+	if (X < 100) {
+		write("Easy\n");
+	} else if (X < 200) {
+		write("Medium\n");
+	} else {
+		write("Hard\n");
 	}
-	write(ans, "\n");
 }
 
 signed main() {
