@@ -46,7 +46,15 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	string a, b;
+	read(a, b);
+	unordered_set<int> ans;
+	for (int i = 0; i < a.size(); ++i) {
+		int diff = b[i] - a[i];
+		if (diff < 0) diff += 26;
+		ans.insert(diff);
+	}
+	write((ans.size() == 1 ? "Yes" : "No"));
 }
 
 signed main() {
@@ -54,7 +62,7 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}

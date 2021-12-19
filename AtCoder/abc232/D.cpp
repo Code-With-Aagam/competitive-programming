@@ -45,8 +45,24 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve(int tc) {
+int dp[101][101];
 
+int dfs(const vector<vector<char>> &board, int i, int j) {
+	int n = board.size(), m = board[0].size();
+	if (i < 0 or j < 0 or i >= n or j >= m or board[i][j] == '#') return 0;
+	if (dp[i][j] != -1) return dp[i][j];
+	dp[i][j] = 1 + max(dfs(board, i + 1, j), dfs(board, i, j + 1));
+	return dp[i][j];
+}
+
+void solve(int tc) {
+	int n, m;
+	read(n, m);
+	memset(dp, -1, sizeof(dp));
+	vector<vector<char>> board(n, vector<char>(m));
+	for (auto &row : board) readContainer(row);
+	int ans = dfs(board, 0, 0);
+	write(ans);
 }
 
 signed main() {
@@ -54,7 +70,7 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}

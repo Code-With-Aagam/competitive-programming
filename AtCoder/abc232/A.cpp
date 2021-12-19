@@ -46,7 +46,9 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	string s;
+	read(s);
+	write(((s.front() - '0') * (s.back() - '0')));
 }
 
 signed main() {
@@ -54,7 +56,7 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}
