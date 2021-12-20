@@ -45,8 +45,23 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve(int tc) {
+set<int> st;
+vector<int> arr;
 
+void solve(int tc) {
+	int n;
+	read(n);
+	int lo = 0, hi = arr.size() - 1, ans = 0;
+	while (lo <= hi) {
+		int mid = lo + (hi - lo) / 2;
+		if (arr[mid] <= n) {
+			ans = mid;
+			lo = mid + 1;
+		} else {
+			hi = mid - 1;
+		}
+	}
+	write(ans + 1, "\n");
 }
 
 signed main() {
@@ -55,10 +70,14 @@ signed main() {
 	cin.tie(nullptr);
 	int T = 1;
 	read(T);
+	const int N = 1e9;
+	for (int x = 1; x * x <= N; ++x) st.insert(x * x);
+	for (int x = 1; x * x * x <= N; ++x) st.insert(x * x * x);
+	for (const auto &ele : st) arr.push_back(ele);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

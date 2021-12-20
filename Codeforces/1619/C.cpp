@@ -46,7 +46,47 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	string s, a, ans = "";
+	read(a, s);
+	if (s == a) {
+		write("0\n");
+		return;
+	}
+	int n = s.size(), m = a.size(), i = n - 1, j = m - 1;
+	while (i >= 0 and j >= 0) {
+		int sd = s[i] - '0', ad = a[j] - '0';
+		if (sd - ad >= 0) {
+			ans += to_string(sd - ad);
+			--i;
+			--j;
+		} else {
+			if (i - 1 >= 0) {
+				int snum = stoi(s.substr(i - 1, 2));
+				if (snum - ad >= 0 and snum - ad <= 9) {
+					ans += to_string(snum - ad);
+					i -= 2;
+					--j;
+				} else {
+					write("-1\n");
+					return;
+				}
+			} else {
+				write("-1\n");
+				return;
+			}
+		}
+	}
+	if (j >= 0) {
+		write("-1\n");
+		return;
+	}
+	while (i >= 0) {
+		ans += s[i];
+		--i;
+	}
+	while (!ans.empty() and ans.back() == '0') ans.pop_back();
+	reverse(begin(ans), end(ans));
+	write(ans, "\n");
 }
 
 signed main() {
@@ -60,5 +100,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

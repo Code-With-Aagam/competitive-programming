@@ -46,7 +46,12 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	long double x0, y0, x1, y1, x2, y2;
+	read(x0, y0, x1, y1, x2, y2);
+	long double ans = x0 * (y1 - y2) + x1 * (y2 - y0) + x2 * (y0 - y1);
+	ans = abs(ans) * 0.5;
+	cout << fixed << setprecision(15);
+	write(ans);
 }
 
 signed main() {
@@ -54,11 +59,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

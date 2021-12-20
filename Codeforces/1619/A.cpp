@@ -46,7 +46,10 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	string s;
+	read(s);
+	int n = s.size();
+	write((s.substr(0, n / 2) == s.substr(n / 2) ? "YES\n" : "NO\n"));
 }
 
 signed main() {
@@ -60,5 +63,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
