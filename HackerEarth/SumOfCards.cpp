@@ -46,7 +46,15 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	int n, x;
+	read(n, x);
+	vector<int> arr(n);
+	readContainer(arr);
+	int total = accumulate(begin(arr), end(arr), 0LL);
+    total = abs(total);
+	int ans = total / x;
+	if (total % x > 0) ++ans;
+	write(ans, "\n");
 }
 
 signed main() {

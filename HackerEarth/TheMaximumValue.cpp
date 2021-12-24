@@ -45,8 +45,26 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve(int tc) {
+const int N = 1e5 + 5;
+vector<bool> is_prime(N + 1, true);
 
+void sieve() {
+	is_prime[0] = is_prime[1] = false;
+	for (int i = 2; i <= N; i++) {
+		if (is_prime[i] and i * i <= N) {
+			for (int j = i * i; j <= N; j += i)
+				is_prime[j] = false;
+		}
+	}
+}
+
+void solve(int tc) {
+	int n, ans = 0;
+	read(n);
+	for (int i = 2; i <= n; ++i) {
+		if (is_prime[i]) ++ans;
+	}
+	write(ans, "\n");
 }
 
 signed main() {
@@ -54,6 +72,7 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
+	sieve();
 	read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
