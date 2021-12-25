@@ -46,7 +46,9 @@ void writeContainer(T &t) {
 }
 
 void solve(int tc) {
-
+	int N;
+	read(N);
+	write((N + 1) * 5000);
 }
 
 signed main() {
@@ -54,11 +56,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve(t);
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
