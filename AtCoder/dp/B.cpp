@@ -45,9 +45,35 @@ void writeContainer(T &t) {
 	}
 	write("\n");
 }
+/**
+ * Recursive -> TLE
+ * */
+int findMinCost(const vector<int> &heights, int currentIndex, int steps) {
+	if (currentIndex >= heights.size() - 1) return 0;
+	int ans = inf;
+	for (int stepSize = 1; stepSize <= steps; ++stepSize) {
+		if (currentIndex + stepSize < heights.size()) {
+			ans = min(ans, abs(heights[currentIndex] - heights[currentIndex + stepSize]) + findMinCost(heights, currentIndex + stepSize, steps));
+		}
+	}
+	return ans;
+}
 
 void solve() {
-
+	int N, K;
+	read(N, K);
+	vector<int> H(N);
+	readContainer(H);
+	vector<int> minCost(N, inf);
+	minCost[0] = 0;
+	for (int index = 1; index < N; ++index) {
+		for (int stepSize = 1; stepSize <= K; ++stepSize) {
+			if (index - stepSize >= 0) {
+				minCost[index] = min(minCost[index], abs(H[index] - H[index - stepSize]) + minCost[index - stepSize]);
+			}
+		}
+	}
+	write(minCost.back());
 }
 
 signed main() {
@@ -55,11 +81,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
