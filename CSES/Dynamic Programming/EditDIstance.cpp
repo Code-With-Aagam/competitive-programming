@@ -78,7 +78,11 @@ void solve() {
 			if (a[i - 1] == b[j - 1]) {
 				editDistance[i][j] = editDistance[i - 1][j - 1];
 			} else {
-				editDistance[i][j] = 1 + min({editDistance[i - 1][j], editDistance[i][j - 1], editDistance[i - 1][j - 1]});
+				editDistance[i][j] = 1 + min({
+                    editDistance[i - 1][j], 
+                    editDistance[i][j - 1], 
+                    editDistance[i - 1][j - 1]
+                });
 			}
 		}
 	}

@@ -46,51 +46,65 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
+const int N = 1e6 + 1;
+vector<pair<int, int>> ways(N);
+
+void precomputation() {
+	ways[1] = make_pair(1, 1);
+	for (int n = 2; n < N; ++n) {
+		auto curr = make_pair(0, 0);
+
+		curr.first += ways[n - 1].second;
+		curr.first += (2LL * ways[n - 1].first) % mod;
+		curr.first %= mod;
+
+		curr.second += ways[n - 1].first;
+		curr.second += (4LL * ways[n - 1].second) % mod;
+		curr.second %= mod;
+
+		ways[n] = curr;
+	}
+}
+
 /**
  * Recursive -> TLE
  *
- * Minimum Operations required to
- * convert a -> b of size n and m respectively.
+ * n               = Number of Ways to tile from 1 to n
+ * belowTilesSplit = Below Tiles are split or joined
  */
-int editDistance(const string &a, const string &b, int n, int m) {
-	if (n == 0) return m;
-	else if (m == 0) return n;
-	if (a[n - 1] == b[m - 1]) {
-		return editDistance(a, b, n - 1, m - 1);
+int solve(int n, bool belowTilesSplit) {
+	if (n == 1) {
+		return 1;
+	}
+	if (belowTilesSplit) {
+		int ans = (4LL * solve(n - 1, true)) % mod;
+		ans += solve(n - 1, false) % mod;
+		ans %= mod;
+		return ans;
 	} else {
-		return 1 + min({
-			editDistance(a, b, n - 1, m),	// Remove
-			editDistance(a, b, n, m - 1),	// Insert
-			editDistance(a, b, n - 1, m - 1)// Replace
-		});
+		int ans = solve(n - 1, true);
+		ans += (2LL * solve(n - 1, false)) % mod;
+		ans %= mod;
+		return ans;
 	}
 }
 
 void solve() {
-	string a, b;
-	read(a, b);
-	int n = a.size(), m = b.size();
-	vector<vector<int>> editDistance(n + 1, vector<int>(m + 1, 0));
-	for (int i = 1; i <= n; ++i) editDistance[i][0] = i;
-	for (int j = 1; j <= m; ++j) editDistance[0][j] = j;
-	for (int i = 1; i <= n; ++i) {
-		for (int j = 1; j <= m; ++j) {
-			if (a[i - 1] == b[j - 1]) {
-				editDistance[i][j] = editDistance[i - 1][j - 1];
-			} else {
-				editDistance[i][j] = 1 + min({editDistance[i - 1][j], editDistance[i][j - 1], editDistance[i - 1][j - 1]});
-			}
-		}
-	}
-	write(editDistance[n][m]);
+	int n;
+	read(n);
+	int ans = ways[n].first;
+	ans += ways[n].second;
+	ans %= mod;
+	write(ans, "\n");
 }
 
 signed main() {
 	auto start = chrono::high_resolution_clock::now();
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
+	precomputation();
 	int T = 1;
-	// read(T);
+	read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
