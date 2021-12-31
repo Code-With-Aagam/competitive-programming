@@ -46,8 +46,40 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve() {
+/**
+ * Recursive -> TLE
+ * */
+int minCuts(int n, int m) {
+	if (n == m) return 0;
+	int ans = inf;
+	for (int i = 1; i < n; ++i) {
+		ans = min(ans, 1 + minCuts(i, m) + minCuts(n - i, m));
+	}
+	for (int j = 1; j < m; ++j) {
+		ans = min(ans, 1 + minCuts(n, j) + minCuts(n, m - j));
+	}
+	return ans;
+}
 
+void solve() {
+	int n, m;
+	read(n, m);
+	vector<vector<int>> cuts(n + 1, vector<int>(m + 1, inf));
+	for (int a = 0; a <= n; ++a) {
+		for (int b = 0; b <= m; ++b) {
+			if (a == b) {
+				cuts[a][b] = 0;
+				continue;
+			}
+			for (int k = 1; k < a; ++k) {
+				cuts[a][b] = min(cuts[a][b], 1 + cuts[a - k][b] + cuts[k][b]);
+			}
+			for (int k = 1; k < b; ++k) {
+				cuts[a][b] = min(cuts[a][b], 1 + cuts[a][b - k] + cuts[a][k]);
+			}
+		}
+	}
+	write(cuts.back().back());
 }
 
 signed main() {
@@ -55,11 +87,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
