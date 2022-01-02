@@ -47,8 +47,39 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve() {
+set<int> possibleSums;
+/**
+ * Recursive -> TLE
+ * */
+void generatePossibleSums(const vector<int> &coins, int index, int currSum) {
+	if (index == coins.size()) {
+		if (currSum > 0)
+			possibleSums.insert(currSum);
+		return;
+	}
+	generatePossibleSums(coins, index + 1, currSum);
+	generatePossibleSums(coins, index + 1, currSum + coins[index]);
+}
 
+void solve() {
+	int n;
+	read(n);
+	vector<int> coins(n);
+	readContainer(coins);
+	int maxSum = accumulate(all(coins), 0LL);
+	vector<bool> possible(maxSum + 1, false);
+	possible[0] = true;
+	for (int i = 0; i < n; ++i) {
+		for (int sum = maxSum; sum >= coins[i]; --sum) {
+			possible[sum] = possible[sum] or possible[sum - coins[i]];
+		}
+	}
+	vector<int> ans;
+	for (int sum = 1; sum <= maxSum; ++sum) {
+		if (possible[sum]) ans.push_back(sum);
+	}
+	write(ans.size(), "\n");
+	writeContainer(ans);
 }
 
 signed main() {
@@ -56,11 +87,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

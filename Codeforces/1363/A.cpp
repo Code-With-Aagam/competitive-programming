@@ -48,7 +48,40 @@ void writeContainer(T &t) {
 }
 
 void solve() {
-
+	int n, x;
+	read(n, x);
+	vector<int> arr(n);
+	readContainer(arr);
+	int odd = 0, even = 0;
+	for (const auto &ele : arr) {
+		if (ele % 2 == 0) ++even;
+		else ++odd;
+	}
+	if (x % 2 == 0) {
+		if (odd % 2 == 0) {
+			if (odd > 0 and even > 0 and odd + even - 1 >= x) {
+				write("Yes\n");
+			} else {
+				write("No\n");
+			}
+		} else {
+			if (odd > 0 and even > 0 and odd + even >= x) {
+				write("Yes\n");
+			} else {
+				write("No\n");
+			}
+		}
+	} else {
+		if (odd % 2 == 0) {
+			if (odd > 0 and odd + even - 1 >= x) {
+				write("Yes\n");
+			} else {
+				write("No\n");
+			}
+		} else {
+			write("Yes\n");
+		}
+	}
 }
 
 signed main() {
@@ -62,5 +95,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

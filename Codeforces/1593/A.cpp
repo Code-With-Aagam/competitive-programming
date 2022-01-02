@@ -5,7 +5,6 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-#define all(x) begin(x), end(x)
 #define deb(x) cout << #x << " is " << x << "\n"
 #define int long long
 
@@ -48,7 +47,12 @@ void writeContainer(T &t) {
 }
 
 void solve() {
-
+	int a, b, c;
+	read(a, b, c);
+	int x = max(0LL, max(b, c) + 1 - a);
+	int y = max(0LL, max(a, c) + 1 - b);
+	int z = max(0LL, max(a, b) + 1 - c);
+	write(x, " ", y, " ", z, "\n");
 }
 
 signed main() {
@@ -62,5 +66,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

@@ -5,7 +5,6 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-#define all(x) begin(x), end(x)
 #define deb(x) cout << #x << " is " << x << "\n"
 #define int long long
 
@@ -47,8 +46,46 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-void solve() {
+const string t = "abacaba";
 
+bool isCountOne(const string &s) {
+	int cnt = 0;
+	for (int i = 0; i + t.size() <= s.size(); ++i) {
+		if (s.substr(i, t.size()) == t) ++cnt;
+	}
+	return cnt == 1;
+}
+
+void solve() {
+	int n;
+	string s;
+	read(n, s);
+	if (isCountOne(s)) {
+		for (auto &ch : s) {
+			if (ch == '?') ch = 'z';
+		}
+		write("Yes\n", s, "\n");
+		return;
+	}
+	for (int i = 0; i + t.size() <= n; ++i) {
+		string fs = s;
+		bool good = true;
+		for (int j = 0; j < t.size(); ++j) {
+			if (fs[i + j] != '?' and fs[i + j] != t[j]) {
+				good = false;
+				break;
+			}
+			fs[i + j] = t[j];
+		}
+		if (good and isCountOne(fs)) {
+			for (auto &ch : fs) {
+				if (ch == '?') ch = 'z';
+			}
+			write("Yes\n", fs, "\n");
+			return;
+		}
+	}
+	write("No\n");
 }
 
 signed main() {
@@ -62,5 +99,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
