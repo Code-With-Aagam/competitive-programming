@@ -47,7 +47,17 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-// (1 / x) % mod = binpow(x, mod - 2)
+/**
+ * Recursive -> TLE
+ */
+int findNumberOfSubsets(const vector<int> &arr, int index, int sum) {
+	if (sum < 0) return 0;
+	if (index == arr.size()) return sum == 0;
+	int including = findNumberOfSubsets(arr, index + 1, sum - arr[index]);
+	int excluding = findNumberOfSubsets(arr, index + 1, sum);
+	return including + excluding;
+}
+
 int binpow(int x, int y) {
 	x %= mod;
 	int res = 1;
@@ -62,7 +72,29 @@ int binpow(int x, int y) {
 }
 
 void solve() {
-
+	int n;
+	read(n);
+	int S = (n * (n + 1)) / 2;
+	if (S % 2 == 1) {
+		write(0);
+		return;
+	}
+	S /= 2;
+	vector<vector<int>> countOfSubsets(n + 1, vector<int>(S + 1, 0));
+	for (int i = 0; i < n; ++i) countOfSubsets[i][0] = 1;
+	for (int i = 1; i <= n; ++i) {
+		for (int s = 0; s <= S; ++s) {
+			countOfSubsets[i][s] = countOfSubsets[i - 1][s];
+			if (s - i >= 0) {
+				countOfSubsets[i][s] += countOfSubsets[i - 1][s - i];
+				countOfSubsets[i][s] %= mod;
+			}
+		}
+	}
+	int ans = countOfSubsets.back().back();
+	ans *= binpow(2, mod - 2);
+	ans %= mod;
+	write(ans);
 }
 
 signed main() {
@@ -70,11 +102,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
