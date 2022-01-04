@@ -2,9 +2,6 @@
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-
 using namespace std;
 using namespace __gnu_pbds;
 
@@ -51,7 +48,7 @@ void writeContainer(T &t) {
 }
 
 // (1 / x) % mod = binpow(x, mod - 2)
-int binpow(int x, int y, int mod = mod) {
+int binpow(int x, int y) {
 	x %= mod;
 	int res = 1;
 	while (y > 0) {
@@ -65,7 +62,20 @@ int binpow(int x, int y, int mod = mod) {
 }
 
 void solve() {
-
+	int n;
+	read(n);
+	vector<int> arr(n);
+	readContainer(arr);
+	vector<int> ans;
+	for (const auto &ele : arr) {
+		auto it = lower_bound(all(ans), ele);
+		if (it == end(ans)) {
+			ans.push_back(ele);
+		} else {
+			*it = ele;
+		}
+	}
+	write(ans.size());
 }
 
 signed main() {
@@ -73,11 +83,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

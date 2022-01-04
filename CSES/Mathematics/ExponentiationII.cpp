@@ -65,7 +65,10 @@ int binpow(int x, int y, int mod = mod) {
 }
 
 void solve() {
-
+	int a, b, c;
+	read(a, b, c);
+	int d = binpow(b, c, mod - 1);
+	write(binpow(a, d), "\n");
 }
 
 signed main() {
@@ -79,5 +82,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

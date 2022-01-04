@@ -51,7 +51,7 @@ void writeContainer(T &t) {
 }
 
 // (1 / x) % mod = binpow(x, mod - 2)
-int binpow(int x, int y, int mod = mod) {
+int binpow(int x, int y) {
 	x %= mod;
 	int res = 1;
 	while (y > 0) {
@@ -65,7 +65,14 @@ int binpow(int x, int y, int mod = mod) {
 }
 
 void solve() {
-
+	int n, k, ans = 0;
+	read(n, k);
+	vector<int> arr(n);
+	readContainer(arr);
+	for (auto &ele : arr) {
+		if (5 - ele >= k) ++ans;
+	}
+	write(ans / 3);
 }
 
 signed main() {
@@ -73,11 +80,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

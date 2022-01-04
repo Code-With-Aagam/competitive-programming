@@ -51,7 +51,7 @@ void writeContainer(T &t) {
 }
 
 // (1 / x) % mod = binpow(x, mod - 2)
-int binpow(int x, int y, int mod = mod) {
+int binpow(int x, int y) {
 	x %= mod;
 	int res = 1;
 	while (y > 0) {
@@ -64,8 +64,45 @@ int binpow(int x, int y, int mod = mod) {
 	return res;
 }
 
-void solve() {
+struct Project {
+	int start, end, reward;
+};
 
+void solve() {
+	int n;
+	read(n);
+	vector<Project*> arr(n);
+	for (int i = 0; i < n; ++i) {
+		Project* p = new Project();
+		read(p -> start, p -> end, p -> reward);
+		arr[i] = p;
+	}
+	sort(all(arr), [](Project * a, Project * b) {
+		return a -> end < b -> end;
+	});
+	auto findIndex = [&](int startTime) {
+		int lo = 0, hi = n - 1, ans = -1;
+		while (lo <= hi) {
+			int mid = lo + (hi - lo) / 2;
+			if (arr[mid] -> end >= startTime) {
+				hi = mid - 1;
+			} else {
+				ans = mid;
+				lo = mid + 1;
+			}
+		}
+		return ans;
+	};
+	vector<int> ans(n + 1, 0);
+	for (int i = 1; i <= n; ++i) {
+		int including = arr[i - 1] -> reward;
+		int idx = findIndex(arr[i - 1] -> start);
+		if (idx >= 0) {
+			including += ans[idx + 1];
+		}
+		ans[i] = max(ans[i - 1], including);
+	}
+	write(ans.back());
 }
 
 signed main() {
@@ -73,11 +110,11 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

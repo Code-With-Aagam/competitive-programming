@@ -51,7 +51,7 @@ void writeContainer(T &t) {
 }
 
 // (1 / x) % mod = binpow(x, mod - 2)
-int binpow(int x, int y, int mod = mod) {
+int binpow(int x, int y) {
 	x %= mod;
 	int res = 1;
 	while (y > 0) {
@@ -65,7 +65,9 @@ int binpow(int x, int y, int mod = mod) {
 }
 
 void solve() {
-
+	int a, b;
+	read(a, b);
+	write(binpow(a, b), "\n");
 }
 
 signed main() {
@@ -79,5 +81,5 @@ signed main() {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	chrono::duration<double, milli> duration = end - start;
-	write("Time Taken = ", duration.count(), " ms\n");
+	// write("Time Taken = ", duration.count(), " ms\n");
 }
