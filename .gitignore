@@ -1,4 +1,5 @@
 # ignore all output files.
+*.exe
 *.out
 *.class
 *.xml
