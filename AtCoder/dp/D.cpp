@@ -48,13 +48,29 @@ void writeContainer(T &t) {
 /**
  * Recursive -> TLE
  * */
-int findMaximumValue(const vector<pair<int, int>> &items, int index, int currWeight, int maxWeight) {
+int findMaximumValue(
+    const vector<pair<int, int>> &items,
+    int index,
+    int currWeight,
+    int maxWeight
+) {
 	if (index == items.size()) return 0;
 	int including = 0;
 	if (currWeight + items[index].first <= maxWeight) {
-		including = items[index].second + findMaximumValue(items, index + 1, currWeight + items[index].first, maxWeight);
+		including = items[index].second + findMaximumValue(
+		                items,
+		                index + 1,
+		                currWeight +
+		                items[index].first,
+		                maxWeight
+		            );
 	}
-	int excluding = findMaximumValue(items, index + 1, currWeight, maxWeight);
+	int excluding = findMaximumValue(
+	                    items,
+	                    index + 1,
+	                    currWeight,
+	                    maxWeight
+	                );
 	return max(including, excluding);
 }
 
