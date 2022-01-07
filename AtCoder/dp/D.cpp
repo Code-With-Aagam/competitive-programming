@@ -81,12 +81,15 @@ void solve() {
 	for (auto &item : items) {
 		read(item.first, item.second);
 	}
-	vector<vector<int>> maxValue(n + 1, vector<int>(W + 1));
-	for (int index = 1; index <= n; ++index) {
+	vector<vector<int>> maxValue(n, vector<int>(W + 1, 0));
+	if (items[0].first <= W) {
+		maxValue[0][items[0].first] = items[0].second;
+	}
+	for (int index = 1; index < n; ++index) {
 		for (int w = 0; w <= W; ++w) {
 			maxValue[index][w] = maxValue[index - 1][w];
-			if (w - items[index - 1].first >= 0) {
-				maxValue[index][w] = max(maxValue[index][w], items[index - 1].second + maxValue[index - 1][w - items[index - 1].first]);
+			if (w - items[index].first >= 0) {
+				maxValue[index][w] = max(maxValue[index][w], items[index].second + maxValue[index - 1][w - items[index].first]);
 			}
 		}
 	}
