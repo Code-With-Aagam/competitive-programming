@@ -65,10 +65,20 @@ int binpow(int x, int y, int mod = mod) {
 }
 
 void solve() {
-
+	int n;
+	read(n);
+	string s = "0123456789";
+	for (int i = 1; i <= n; ++i) {
+		if (i == 1) write("9");
+		else if (i == 2) write("8");
+		else if (i == 3) write("9");
+		else write(s[(i - 4) % 10]);
+	}
+	write("\n");
 }
 
 signed main() {
+	auto start = chrono::high_resolution_clock::now();
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
@@ -76,4 +86,7 @@ signed main() {
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
+	auto end = chrono::high_resolution_clock::now();
+	chrono::duration<double, milli> duration = end - start;
+	// write("Time Taken = ", duration.count(), " ms\n");
 }

@@ -6,3 +6,7 @@
 *.iml
 .history/
 .vscode/
+node_modules/
+main.cpp__tests
+package.json
+package-lock.json
