@@ -14,8 +14,8 @@ app.post('/', (req, res) => {
         })
     }
     fs.writeFile('D:\\competitive-programming\\main.cpp__tests', JSON.stringify(tests), function() {});
-    console.log("all test cases parsed successfully...");
     res.sendStatus(200);
+    console.log("all test cases parsed successfully...");
 });
 
 app.listen(12345, err => {
