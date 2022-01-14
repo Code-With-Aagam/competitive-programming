@@ -51,7 +51,18 @@ void writeContainer(T &t) {
 }
 
 void solve() {
-
+	int n;
+	long double x;
+	read(n, x);
+	vector<long double> arr(n);
+	readContainer(arr);
+	long double s = accumulate(all(arr), 0LL);
+	int mn = ceil(s / x);
+	int mx = 0;
+	for (const auto &ele : arr) {
+		mx += ceil(ele / x);
+	}
+	write(mn, " ", mx, "\n");
 }
 
 signed main() {

@@ -51,14 +51,24 @@ void writeContainer(T &t) {
 }
 
 void solve() {
-
+	int n, d;
+	read(n, d);
+	vector<int> t(n);
+	readContainer(t);
+	int s = accumulate(all(t), 0LL);
+	int total = s + (n - 1) * 10;
+	if (total <= d) {
+		write((d - s) / 5, "\n");
+	} else {
+		write("-1\n");
+	}
 }
 
 signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	read(T);
+	// read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
