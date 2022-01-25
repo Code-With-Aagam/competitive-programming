@@ -50,74 +50,6 @@ void writeContainer(T &t) {
 	write("\n");
 }
 
-class TrieNode {
-	TrieNode* children[26] = { nullptr };
-	bool lastCharacter = false;
-
-	int getIndex(const char &ch) {
-		return ch - 'a';
-	}
-public:
-	bool containsKey(const char &ch) {
-		int index = getIndex(ch);
-		return children[index] != nullptr;
-	}
-
-	TrieNode* getNextNode(const char &ch) {
-		int index = getIndex(ch);
-		return children[index];
-	}
-
-	void createNode(const char &ch) {
-		int index = getIndex(ch);
-		children[index] = new TrieNode();
-	}
-
-	void markLastCharacter() {
-		lastCharacter = true;
-	}
-
-	bool isLastCharacter() {
-		return lastCharacter;
-	}
-};
-
-class SearchEngine {
-	TrieNode* root = new TrieNode();
-public:
-	void add(string word) {
-		TrieNode* node = root;
-		for (const auto &ch : word) {
-			if (not node -> containsKey(ch)) {
-				node -> createNode(ch);
-			}
-			node = node -> getNextNode(ch);
-		}
-		node -> markLastCharacter();
-	}
-
-	bool exists(string word) {
-		TrieNode* node = root;
-		for (const auto &ch : word) {
-			if (ch != '.') {
-				if (not node -> containsKey(ch)) {
-					return false;
-				}
-				node = node -> getNextNode(ch);
-			} else {
-				queue<TrieNode*> q;
-				for (char w = 'a'; w <= 'z'; ++w) {
-					if (node -> containsKey(w)) {
-						q.push(node -> getNextNode(w));
-					}
-				}
-
-			}
-		}
-		return node -> isLastCharacter();
-	}
-};
-
 void solve() {
 
 }
@@ -126,7 +58,7 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	int T = 1;
-	// read(T);
+	read(T);
 	for (int t = 1; t <= T; ++t) {
 		solve();
 	}
