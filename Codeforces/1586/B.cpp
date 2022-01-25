@@ -51,33 +51,22 @@ void writeContainer(T &t) {
 }
 
 void solve() {
-	int n;
-	read(n);
-	vector<int> arr(n);
-	readContainer(arr);
-	vector<int> freq(n + 1, 0), ans(n + 1, -1);
-	for (const auto &ele : arr) freq[ele]++;
-	stack<int> extra;
-	int cnt = 0, move = 0;
-	for (int mex = 0; mex <= n; ++mex) {
-		if (cnt >= mex) {
-			ans[mex] = move + freq[mex];
-		}
-		cnt += freq[mex];
-		if (freq[mex] == 0) {
-			while (not extra.empty() and freq[extra.top()] < 2) {
-				extra.pop();
-			}
-			if (extra.empty()) break;
-			int take = extra.top();
-			freq[take]--;
-			freq[mex]++;
-			move += mex - take;
-		} else if (freq[mex] >= 2) {
-			extra.push(mex);
+	int n, m, ai, bi, ci;
+	read(n, m);
+	vector<bool> seen(n + 1, false);
+	while (m--) {
+		read(ai, bi, ci);
+		seen[bi] = true;
+	}
+	int x = 0;
+	for (int i = 1; i <= n; ++i) {
+		if (not seen[i]) x = i;
+	}
+	for (int i = 1; i <= n; ++i) {
+		if (i != x) {
+			write(x, " ", i, "\n");
 		}
 	}
-	writeContainer(ans);
 }
 
 signed main() {
